@@ -9,10 +9,7 @@ Button buttonB(8);
 
 int step = 1;
 int dialer = A0;
-int selectedTeam = 0;
 int charCount = 0;
-char lastChar = "\0";
-char command[4] = "\0";
 
 void setup() {
   Serial.begin(4800);
@@ -30,7 +27,7 @@ void loop() {
   if (buttonA.pressedFor(3000)) {
     if (step != 1) {
       step = 1;
-      Serial.print("tm:rst#");
+      Serial.print("reset#");
       delay(10);
     }
     return;
@@ -38,7 +35,7 @@ void loop() {
 
   if (buttonA.wasReleased()) {
     if (step == 2 && charCount > 0) {
-      Serial.print("tp:del#");
+      Serial.print("erase#");
       charCount--;
       delay(10);
       return;
@@ -51,13 +48,15 @@ void loop() {
       read = read / 83;
       read = read > 12 ? 12 : read;
       step = 2;
-      sprintf(command, "tm:%d#", read);
+      char command[8] = "";
+      sprintf(command, "team:%d#", read);
       Serial.print(command);
       delay(10);
       return;
     }
     if (step == 2) {
-      sprintf(command, "tp:%c", readCharacter());
+      char command[8] = "";
+      sprintf(command, "type:%c#", readCharacter());
       Serial.print(command);
       charCount++;
       delay(10);
@@ -100,7 +99,8 @@ void showTyping() {
 
 void drawFrameTitle(char* title) {
   oled.setFont(u8g2_font_mercutio_sc_nbp_t_all);
-  oled.drawStr(6, 15, title);
+  int w = oled.getStrWidth(title);
+  oled.drawStr((int)(128-w)/2, 15, title);
 }
 
 void drawFrame() {
