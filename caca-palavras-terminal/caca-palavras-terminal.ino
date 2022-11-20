@@ -7,7 +7,7 @@ U8G2_SSD1306_128X64_NONAME_1_HW_I2C oled(U8G2_R0, SCL, SDA, U8X8_PIN_NONE);
 Button buttonA(9);
 Button buttonB(8);
 
-int step = 1;
+int step = 0;
 int dialer = A0;
 int charCount = 0;
 
@@ -24,50 +24,57 @@ void loop() {
   buttonA.read();
   buttonB.read();
 
-  if (buttonA.pressedFor(3000)) {
-    if (step != 1) {
+  if (step == 0) {
+    showStart();
+    if (buttonB.wasReleased()) {
       step = 1;
-      Serial.print("reset#");
-      delay(10);
-    }
-    return;
-  }
-
-  if (buttonA.wasReleased()) {
-    if (step == 2 && charCount > 0) {
-      Serial.print("erase#");
-      charCount--;
-      delay(10);
       return;
     }
   }
 
-  if (buttonB.wasPressed()) {
-    if (step == 1) {
-      int read = analogRead(dialer);
-      read = read / 83;
-      read = read > 12 ? 12 : read;
+  if (step == 3) {
+    showStart();
+    if (buttonB.wasReleased()) {
+      step = 0;
+      return;
+    }
+  }
+
+  if (step == 1) {
+    showChooseTeam();
+    if (buttonB.wasReleased()) {
       step = 2;
       char command[8] = "";
-      sprintf(command, "team:%d#", read);
+      sprintf(command, "start:%d#", readTeam());
       Serial.print(command);
-      delay(10);
       return;
     }
-    if (step == 2) {
+  }
+
+  if (step == 2) {
+    showTyping();
+    if (buttonA.pressedFor(2000)) {
+      step = 1;
+      Serial.print("reset#");
+      return;
+    }
+    if (buttonB.pressedFor(2000)) {
+      step = 3;
+      Serial.print("finish#");
+      return;
+    }
+    if (buttonA.wasReleased() && charCount > 0) {
+      Serial.print("erase#");
+      charCount--;
+      return;
+    }
+    if (buttonB.wasReleased()) {
       char command[8] = "";
       sprintf(command, "type:%c#", readCharacter());
       Serial.print(command);
       charCount++;
-      delay(10);
       return;
     }
-  }
-  if (step == 1) {
-    showChooseTeam();
-  }
-  if (step == 2) {
-    showTyping();
   }
 }
 
@@ -94,6 +101,18 @@ void showTyping() {
     sprintf(tmp, "%c", readCharacter());
     int w = oled.getStrWidth(tmp);    
     oled.drawStr((int)(128-w)/2, 50, tmp);
+  } while (oled.nextPage());
+}
+
+void showStart() {
+  oled.firstPage();
+  do {
+    drawFrame();
+    char title[16] = "Pressione enter";
+    oled.setFont(u8g2_font_mercutio_sc_nbp_t_all);
+    int w = oled.getStrWidth(title);
+    oled.setFontPosCenter();
+    oled.drawStr((int)(128-w)/2, 32, title);
   } while (oled.nextPage());
 }
 
