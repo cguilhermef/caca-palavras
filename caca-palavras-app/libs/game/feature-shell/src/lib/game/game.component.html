@@ -1,0 +1,18 @@
+<div class="players">
+  <div class="player player--two">
+    <div class="player-team">Tigre</div>
+    <div class="player-word">
+      <span
+        *ngFor="let char of playerOneWord$ | async"
+        class="player-character">{{ char }}</span>
+    </div>
+  </div>
+  <div class="player player--two">
+    <div class="player-team">Tigre</div>
+    <div class="player-word">
+      <span
+        *ngFor="let char of playerTwoWord$ | async"
+        class="player-character">{{ char }}</span>
+    </div>
+  </div>
+</div>

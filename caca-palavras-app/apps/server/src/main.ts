@@ -30,17 +30,23 @@ const termOne = new SerialPort({
   baudRate: 4800,
 });
 const parserTermOne = termOne.pipe(new DelimiterParser({ delimiter: '#' }));
-parserTermOne.on('data', (data) => io.emit('command', {
-  term: 1,
-  command: data.toString()
-}));
+parserTermOne.on('data', (data) => {
+  console.log('parserTermOne.on', data.toString());
+  io.emit('command', {
+    player: 1,
+    payload: data.toString()
+  })
+});
 
 const termTwo = new SerialPort({
   path: 'COM8',
   baudRate: 4800,
 });
 const parserTermTwo = termTwo.pipe(new DelimiterParser({ delimiter: '#' }));
-parserTermTwo.on('data', (data) => io.emit('command', {
-  term: 2,
-  command: data.toString()
-}));
+parserTermTwo.on('data', (data) => {
+  console.log('parserTermTwo.on', data.toString());
+  io.emit('command', {
+    player: 2,
+    payload: data.toString()
+  })
+});

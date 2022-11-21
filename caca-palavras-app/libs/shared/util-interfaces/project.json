@@ -1,0 +1,43 @@
+{
+  "name": "shared-util-interfaces",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/shared/util-interfaces/src",
+  "prefix": "cp",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/libs/shared/util-interfaces"],
+      "options": {
+        "project": "libs/shared/util-interfaces/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/shared/util-interfaces/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/shared/util-interfaces/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/util-interfaces"],
+      "options": {
+        "jestConfig": "libs/shared/util-interfaces/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/util-interfaces/**/*.ts",
+          "libs/shared/util-interfaces/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["type:util", "scope:shared"]
+}
