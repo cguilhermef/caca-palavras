@@ -16,14 +16,12 @@ import { map, takeWhile } from 'rxjs';
 export class GameComponent implements OnDestroy {
   private componentActive = true;
 
-  playerTwo$ = this.store.select(GameSelectors.playerTwoTyping);
-  playerTwoWord$ = this.store.pipe(
-    select(GameSelectors.playerTwoWord),
-    map((characters) => characters.padEnd(10, ' ').split(''))
-  );
-
   playerOneWord$ = this.store.pipe(
     select(GameSelectors.playerOneWord),
+    map((characters) => characters.padEnd(10, ' ').split(''))
+  );
+  playerTwoWord$ = this.store.pipe(
+    select(GameSelectors.playerTwoWord),
     map((characters) => characters.padEnd(10, ' ').split(''))
   );
 
