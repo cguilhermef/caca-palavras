@@ -3,19 +3,37 @@
 </div>
 <div class="players">
   <div class="player player--two">
-    <div class="player-team">Tigre</div>
+    <!-- Player Name -->
+    <ng-container *ngIf="(playerOneTeam$ | async ) ?? null as playerOne; else waitingPlayer">
+      <div class="player-team">{{ playerOne.name }}</div>
+    </ng-container>
+    <!-- Player Name end -->
+    <!-- Player Word -->
     <div class="player-word">
       <span
         *ngFor="let char of playerOneWord$ | async"
         class="player-character">{{ char }}</span>
     </div>
+    <!-- Player Word end -->
   </div>
   <div class="player player--two">
-    <div class="player-team">Tigre</div>
+    <!-- Player Name -->
+    <ng-container *ngIf="(playerTwoTeam$ | async ) ?? null as playerTwo; else waitingPlayer">
+      <div class="player-team">{{ playerTwo.name }}</div>
+    </ng-container>
+    <!-- Player Name end -->
+    <!-- Player Word -->
     <div class="player-word">
       <span
         *ngFor="let char of playerTwoWord$ | async"
         class="player-character">{{ char }}</span>
     </div>
+    <!-- Player Word end -->
   </div>
 </div>
+
+<!-- templates -->
+<ng-template #waitingPlayer>
+  <div class="player-team player-team--waiting">Aguardando...</div>
+</ng-template>
+<!-- templates end -->

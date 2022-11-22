@@ -26,6 +26,9 @@ export class GameComponent implements OnDestroy {
     map((characters) => characters.padEnd(10, ' ').split(''))
   );
 
+  playerOneTeam$ = this.store.select(GameSelectors.playerOneTeam);
+  playerTwoTeam$ = this.store.select(GameSelectors.playerTwoTeam);
+
   ranking$ = this.store.select(GameSelectors.ranking);
 
   constructor(private store: Store) {
