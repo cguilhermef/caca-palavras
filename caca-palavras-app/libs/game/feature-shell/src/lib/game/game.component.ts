@@ -3,9 +3,10 @@ import { select, Store } from '@ngrx/store';
 import {
   GameActions,
   GameSelectors,
-  SocketService,
 } from '@caca-palavras-app/game/data-access';
-import { map, takeWhile } from 'rxjs';
+import { map } from 'rxjs';
+import { RawCommand } from '@caca-palavras-app/shared/util-interfaces';
+import { io } from 'socket.io-client';
 
 @Component({
   selector: 'cp-game',
@@ -25,16 +26,69 @@ export class GameComponent implements OnDestroy {
     map((characters) => characters.padEnd(10, ' ').split(''))
   );
 
-  constructor(private store: Store, private socketService: SocketService) {
-    this.socketService.commands$
-      .pipe(takeWhile(() => this.componentActive))
-      .subscribe((command) => {
-        console.log('subscribe', command);
-        this.store.dispatch(GameActions.registerCommand({ command }));
-      });
+  ranking$ = this.store.select(GameSelectors.ranking);
+
+  constructor(private store: Store) {
+    const socket = io('localhost:3333');
+    socket.on('command', (command) => {
+      console.log('socket.on', command);
+      this.dispatchActionFrom(command);
+    });
   }
 
   ngOnDestroy() {
     this.componentActive = false;
+  }
+
+  private dispatchActionFrom(rawCommand: RawCommand) {
+    console.log('raw command', rawCommand);
+    const { player, payload } = rawCommand;
+    const [type, value] = payload.split(':');
+
+    switch (type) {
+      case 'start': {
+        this.store.dispatch(
+          GameActions.startTyping({
+            teamId: Number(value),
+            player,
+          })
+        );
+        break;
+      }
+      case 'finish': {
+        this.store.dispatch(
+          GameActions.finishTyping({
+            teamId: Number(value),
+            player,
+          })
+        );
+        break;
+      }
+      case 'type': {
+        this.store.dispatch(
+          GameActions.typeCharacter({
+            character: String(value),
+            player,
+          })
+        );
+        break;
+      }
+      case 'erase': {
+        this.store.dispatch(
+          GameActions.eraseLastCharacter({
+            player,
+          })
+        );
+        break;
+      }
+      case 'reset': {
+        this.store.dispatch(
+          GameActions.resetTyping({
+            player,
+          })
+        );
+        break;
+      }
+    }
   }
 }

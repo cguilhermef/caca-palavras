@@ -3,7 +3,7 @@ export enum CommandType {
   Finish,
   Type,
   Erase,
-  Reset
+  Reset,
 }
 
 export interface Command {
@@ -11,15 +11,22 @@ export interface Command {
   type: CommandType;
 }
 
-export interface StartCommand extends Command {
+export interface TeamCommand extends Command {
   team: number;
 }
 
 export interface TypeCommand extends Command {
-  character: string
+  character: string;
 }
 
 export interface RawCommand {
   player: number;
   payload: string;
+}
+
+export interface Team {
+  id: number;
+  name: string;
+  points: number;
+  image: string;
 }

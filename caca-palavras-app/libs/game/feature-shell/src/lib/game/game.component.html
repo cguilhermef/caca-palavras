@@ -1,3 +1,6 @@
+<div *ngFor="let team of ranking$ | async">
+  {{ team.name }} - {{ team.points }}
+</div>
 <div class="players">
   <div class="player player--two">
     <div class="player-team">Tigre</div>

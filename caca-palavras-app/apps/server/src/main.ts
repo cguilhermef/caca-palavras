@@ -2,7 +2,7 @@
  * This is not a production server yet!
  * This is only a minimal backend to get started.
  */
-import { SerialPort } from "serialport";
+import { SerialPort } from 'serialport';
 import { DelimiterParser } from '@serialport/parser-delimiter';
 import * as express from 'express';
 import * as cors from 'cors';
@@ -21,9 +21,11 @@ const server = app.listen(port, () => {
 server.on('error', console.error);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:4200"
-  }
+    origin: 'http://localhost:4200',
+  },
 });
+
+io.on('connect', () => console.log('Browser connected!'));
 
 const termOne = new SerialPort({
   path: 'COM6',
@@ -34,8 +36,8 @@ parserTermOne.on('data', (data) => {
   console.log('parserTermOne.on', data.toString());
   io.emit('command', {
     player: 1,
-    payload: data.toString()
-  })
+    payload: data.toString(),
+  });
 });
 
 const termTwo = new SerialPort({
@@ -47,6 +49,6 @@ parserTermTwo.on('data', (data) => {
   console.log('parserTermTwo.on', data.toString());
   io.emit('command', {
     player: 2,
-    payload: data.toString()
-  })
+    payload: data.toString(),
+  });
 });
