@@ -1,12 +1,45 @@
 * {
   box-sizing: border-box;
 }
+
 html {
+  font-family: 'Oswald', sans-serif;
   font-size: 16px;
   position: relative;
   height: 100%;
   width: 100%;
 }
+
+:root {
+  --base-surface: #f4f4f4;
+  --elevated-surface: rgba(0, 0, 0, 0.05);
+  --high-elevated-surface: rgba(0, 0, 0, 0.2);
+  --border-color: rgba(0, 0, 0, 0.6);
+  --text-high-emphasis: rgba(0, 0, 0, 0.87);
+  --text-medium-emphasis: rgba(0, 0, 0, 0.6);
+  --text-low-emphasis: rgba(0, 0, 0, 0.2);
+}
+
+html.dark-mode {
+  --base-surface: #212121;
+  --elevated-surface: rgba(255, 255, 255, 0.05);
+  --high-elevated-surface: rgba(255, 255, 255, 0.2);
+  --border-color: rgba(255, 255, 255, 0.6);
+  --text-high-emphasis: rgba(255, 255, 255, 0.87);
+  --text-medium-emphasis: rgba(255, 255, 255, 0.6);
+  --text-low-emphasis: rgba(255, 255, 255, 0.2);
+}
+
 html, body {
+  background-color: var(--base-surface);
+  color: rgba(255, 255, 255, 0.87);
   margin: 0;
+}
+
+body, cp-root {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }

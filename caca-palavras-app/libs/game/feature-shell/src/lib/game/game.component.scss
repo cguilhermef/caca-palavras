@@ -1,12 +1,28 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 16px;
+}
+
+.ranking {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
 .players {
+  border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: auto;
   padding: 16px;
   width: 100%;
 }
 
 .player {
+  color: var(--text-high-emphasis);
   display: flex;
   flex-direction: column;
   width: 640px;
@@ -36,7 +52,7 @@
 }
 
 .player-word {
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -53,6 +69,29 @@
 }
 
 .player-character + .player-character {
-  border-left: 1px solid rgba(0, 0, 0, 0.15);
+  border-left: 1px solid var(--border-color);
 }
 
+.stats {
+  display: flex;
+  flex-direction: column;
+  margin: 16px auto;
+  text-align: center;
+}
+
+.timer {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 48px;
+  margin-bottom: 8px;
+}
+
+.words {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .label {
+    margin-left: 8px;
+  }
+}

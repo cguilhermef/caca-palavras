@@ -21,6 +21,7 @@
       "@caca-palavras-app/game/feature-shell": [
         "libs/game/feature-shell/src/index.ts"
       ],
+      "@caca-palavras-app/game/ui": ["libs/game/ui/src/index.ts"],
       "@caca-palavras-app/shared/util-interfaces": [
         "libs/shared/util-interfaces/src/index.ts"
       ]

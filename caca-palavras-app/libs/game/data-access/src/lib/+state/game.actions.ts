@@ -34,3 +34,7 @@ export const resetTyping = createAction(
   '[Game] reset typing',
   props<{ player: number }>()
 );
+
+export const startGame = createAction('[Game] start the game');
+
+export const endGame = createAction('[Game] end the game');

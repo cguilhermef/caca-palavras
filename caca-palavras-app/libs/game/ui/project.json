@@ -1,0 +1,40 @@
+{
+  "name": "game-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/game/ui/src",
+  "prefix": "cp",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/libs/game/ui"],
+      "options": {
+        "project": "libs/game/ui/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/game/ui/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/game/ui/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/game/ui"],
+      "options": {
+        "jestConfig": "libs/game/ui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/game/ui/**/*.ts", "libs/game/ui/**/*.html"]
+      }
+    }
+  },
+  "tags": ["type:ui", "scope:game"]
+}

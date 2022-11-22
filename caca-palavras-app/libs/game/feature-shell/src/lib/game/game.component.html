@@ -1,5 +1,18 @@
-<div *ngFor="let team of ranking$ | async">
-  {{ team.name }} - {{ team.points }}
+<div class="stats">
+  <div class="timer-label">Tempo restante</div>
+  <div class="timer">{{ countdown$ | async}}</div>
+  <div class="words">
+    <span class="words-found">5</span>/<span class="words-total">120</span>
+    <div class="label">palavras encontradas</div>
+  </div>
+</div>
+<div class="ranking">
+  <cp-ranking-position
+    *ngFor="let team of ranking$ | async; index as i; even as isEven"
+    [class.even]="isEven"
+    [team]="team"
+    [position]="i+1"
+  ></cp-ranking-position>
 </div>
 <div class="players">
   <div class="player player--two">

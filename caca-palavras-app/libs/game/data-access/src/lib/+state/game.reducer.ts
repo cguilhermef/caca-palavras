@@ -1,12 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as GameActions from './game.actions';
-import { Command, Team } from '@caca-palavras-app/shared/util-interfaces';
+import { Team } from '@caca-palavras-app/shared/util-interfaces';
 import { teamList, Word, wordList } from './game.models';
 
 export const GAME_FEATURE_KEY = 'game';
 
 export interface GameState {
-  commands: Command[];
   currentPlayerOne: number | null;
   currentPlayerTwo: number | null;
   playerOneWord: string;
@@ -17,7 +16,6 @@ export interface GameState {
 }
 
 export const initialGameState: GameState = {
-  commands: [],
   currentPlayerOne: null,
   currentPlayerTwo: null,
   playerOneWord: '',

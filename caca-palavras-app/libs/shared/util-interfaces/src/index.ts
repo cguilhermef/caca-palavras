@@ -29,4 +29,20 @@ export interface Team {
   name: string;
   points: number;
   image: string;
+  chinese: string;
+}
+
+export enum Teams {
+  Boi = 1,
+  Cao,
+  Carneiro,
+  Cavalo,
+  Coelho,
+  Dragao,
+  Galo,
+  Macaco,
+  Porco,
+  Rato,
+  Serpente,
+  Tigre,
 }

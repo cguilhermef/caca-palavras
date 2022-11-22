@@ -1,0 +1,13 @@
+<div class="ranking">
+  <div
+    class="position"
+    [class.position--first]="position === 1"
+    [class.position--second]="position === 2"
+    [class.position--third]="position === 3"
+  >{{ position }}º
+  </div>
+  <cp-chinese-symbol class="symbol" [team]="team.id"></cp-chinese-symbol>
+  <!--  <div class="symbol">{{ team.chinese }}</div>-->
+  <div class="name">{{ team.name }}</div>
+  <div class="points">{{ team.points }}</div>
+</div>
