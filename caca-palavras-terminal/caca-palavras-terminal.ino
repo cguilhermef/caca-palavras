@@ -10,6 +10,7 @@ Button buttonB(8);
 int step = 0;
 int dialer = A0;
 int charCount = 0;
+int currentTeam = 0;
 
 void setup() {
   Serial.begin(4800);
@@ -44,8 +45,9 @@ void loop() {
     showChooseTeam();
     if (buttonB.wasReleased()) {
       step = 2;
+      currentTeam = readTeam();
       char command[8] = "";
-      sprintf(command, "start:%d#", readTeam());
+      sprintf(command, "start:%d#", currentTeam);
       Serial.print(command);
       return;
     }
@@ -59,8 +61,11 @@ void loop() {
       return;
     }
     if (buttonB.pressedFor(2000)) {
+      char command[8] = "";
+      sprintf(command, "finish:%d#", currentTeam);
+      Serial.print(command);
       step = 3;
-      Serial.print("finish#");
+      currentTeam = 0;
       return;
     }
     if (buttonA.wasReleased() && charCount > 0) {
