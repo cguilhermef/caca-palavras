@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { GAME_FEATURE_KEY, GameState } from './game.reducer';
+import { RankedTeam } from '@caca-palavras-app/shared/util-interfaces';
 
 // Lookup the 'Game' feature state managed by NgRx
 export const getGameState = createFeatureSelector<GameState>(GAME_FEATURE_KEY);
@@ -14,9 +15,27 @@ export const playerTwoWord = createSelector(
 );
 
 export const teamsList = createSelector(getGameState, ({ teams }) => teams);
-export const ranking = createSelector(teamsList, (list) =>
-  list.slice().sort((a, b) => b.points - a.points)
-);
+export const ranking = createSelector(teamsList, (list) => {
+  const sortedList: RankedTeam[] = list
+    .slice()
+    .sort((a, b) => b.points - a.points)
+    .map((team, index) => ({ ...team, position: index + 1 }));
+
+  let position = 1;
+  return sortedList.map((team, index) => {
+    if (index === 0) {
+      return team;
+    }
+    const previousTeam = sortedList[index - 1];
+    if (previousTeam.points !== team.points) {
+      position++;
+    }
+    return {
+      ...team,
+      position: previousTeam.points === team.points ? null : position,
+    };
+  });
+});
 
 export const playerOneTeam = createSelector(
   getGameState,
@@ -28,4 +47,8 @@ export const playerTwoTeam = createSelector(
   getGameState,
   ({ teams, currentPlayerTwo }) =>
     teams.find(({ id }) => id === currentPlayerTwo) || null
+);
+
+export const totalPoints = createSelector(getGameState, ({ teams }) =>
+  teams.reduce((r, { points }) => (r += points), 0)
 );

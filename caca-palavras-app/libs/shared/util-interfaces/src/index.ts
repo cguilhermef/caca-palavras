@@ -32,6 +32,10 @@ export interface Team {
   chinese: string;
 }
 
+export interface RankedTeam extends Team {
+  position: number | null;
+}
+
 export enum Teams {
   Boi = 1,
   Cao,

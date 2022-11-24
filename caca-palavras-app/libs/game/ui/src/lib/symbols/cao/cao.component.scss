@@ -1,0 +1,12 @@
+:host {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  --draw-color: white
+}
+
+svg {
+  //filter: drop-shadow(1px 1px 1px rgb(255 255 255 / 0.4));
+  height: 100%;
+  width: auto;
+}

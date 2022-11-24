@@ -1,13 +1,20 @@
 <div class="ranking">
   <div
     class="position"
-    [class.position--first]="position === 1"
-    [class.position--second]="position === 2"
-    [class.position--third]="position === 3"
-  >{{ position }}º
+    [class.position--first]="team.position === 1"
+    [class.position--second]="team.position === 2"
+    [class.position--third]="team.position === 3"
+  >
+    <ng-container *ngIf="team.position">
+      {{ team.position }}º
+    </ng-container>
   </div>
-  <cp-chinese-symbol class="symbol" [team]="team.id"></cp-chinese-symbol>
+
   <!--  <div class="symbol">{{ team.chinese }}</div>-->
   <div class="name">{{ team.name }}</div>
+  <div class="score-bar">
+    <div class="score" [style.width.%]="scoreBarSize"></div>
+    <cp-chinese-symbol class="symbol" [team]="team.id"></cp-chinese-symbol>
+  </div>
   <div class="points">{{ team.points }}</div>
 </div>

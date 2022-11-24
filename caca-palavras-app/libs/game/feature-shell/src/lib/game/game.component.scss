@@ -1,4 +1,5 @@
 :host {
+  color: var(--text-high-emphasis);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -11,7 +12,7 @@
   flex: 1 0 auto;
 }
 
-.players {
+.hud {
   border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: row;
@@ -80,10 +81,17 @@
 }
 
 .timer {
+  display: flex;
   font-size: 48px;
   font-weight: 700;
   line-height: 48px;
   margin-bottom: 8px;
+}
+
+.timer-number {
+  display: flex;
+  flex: 0 0 auto;
+  width: 52px;
 }
 
 .words {

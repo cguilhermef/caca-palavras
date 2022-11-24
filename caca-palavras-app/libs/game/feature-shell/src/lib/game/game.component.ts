@@ -4,7 +4,7 @@ import {
   GameActions,
   GameSelectors,
 } from '@caca-palavras-app/game/data-access';
-import { BehaviorSubject, map } from 'rxjs';
+import { map, takeWhile, tap, timer } from 'rxjs';
 import { RawCommand } from '@caca-palavras-app/shared/util-interfaces';
 import { io } from 'socket.io-client';
 
@@ -23,8 +23,19 @@ dayjs.extend(duration);
 export class GameComponent implements OnDestroy {
   private componentActive = true;
 
-  private timer$ = new BehaviorSubject<Duration>(dayjs.duration(1, 'hour'));
-  countdown$ = this.timer$.pipe(map((d) => d.format('HH:mm:ss')));
+  private gameTime: Duration = dayjs.duration(1, 'hour');
+  private gameFinished = false;
+  private gameStarted = false;
+  countdown$ = timer(1000, 1000).pipe(
+    takeWhile(() => !this.gameFinished),
+    tap(() => (this.gameTime = this.gameTime.subtract(1, 'second'))),
+    map(() => {
+      if (this.gameTime.asMilliseconds() === 0) {
+        this.gameFinished = true;
+      }
+      return this.gameTime.format('HH:mm:ss').split(':');
+    })
+  );
 
   playerOneWord$ = this.store.pipe(
     select(GameSelectors.playerOneWord),
@@ -39,6 +50,7 @@ export class GameComponent implements OnDestroy {
   playerTwoTeam$ = this.store.select(GameSelectors.playerTwoTeam);
 
   ranking$ = this.store.select(GameSelectors.ranking);
+  totalPoint$ = this.store.select(GameSelectors.totalPoints);
 
   constructor(private store: Store) {
     const socket = io('localhost:3333');
@@ -47,10 +59,12 @@ export class GameComponent implements OnDestroy {
       this.dispatchActionFrom(command);
     });
 
-    setInterval(
-      () => this.timer$.next(this.timer$.value.subtract(1, 'second')),
-      1000
-    );
+    // setInterval(
+    //   () => {
+    //     this.timer$.next(this.timer$.value.subtract(1, 'second'))
+    //   },
+    //   1000
+    // );
   }
 
   ngOnDestroy() {

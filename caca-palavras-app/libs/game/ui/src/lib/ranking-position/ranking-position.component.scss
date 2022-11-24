@@ -44,8 +44,40 @@
   background: linear-gradient(135deg, #f0b7a1 0%, #c1472c 34%, #c1472c 67%, #bf6e4e 100%);
 }
 
-.points {
-  margin-left: auto;
-  padding: 0 16px;
+.name {
+  display: flex;
+  flex: 0 0 auto;
+  width: 100px;
 }
 
+.symbol {
+  height: 56px;
+  width: 56px;
+}
+
+.points {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  margin-left: auto;
+  padding: 0 16px;
+  width: 116px;
+}
+
+.score-bar {
+  align-items: center;
+  display: flex;
+  flex: 0 auto;
+  width: 100%;
+}
+
+.score {
+  background-color: #996b33;
+  height: 44px;
+}
+
+.symbol {
+  display: flex;
+  flex: 0 0 auto;
+  width: 80px;
+}
