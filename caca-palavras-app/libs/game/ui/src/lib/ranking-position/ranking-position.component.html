@@ -11,10 +11,10 @@
   </div>
 
   <!--  <div class="symbol">{{ team.chinese }}</div>-->
+  <cp-chinese-symbol class="symbol" [team]="team.id"></cp-chinese-symbol>
   <div class="name">{{ team.name }}</div>
   <div class="score-bar">
     <div class="score" [style.width.%]="scoreBarSize"></div>
-    <cp-chinese-symbol class="symbol" [team]="team.id"></cp-chinese-symbol>
   </div>
   <div class="points">{{ team.points }}</div>
 </div>
