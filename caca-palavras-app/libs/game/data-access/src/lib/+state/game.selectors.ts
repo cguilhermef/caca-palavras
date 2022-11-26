@@ -22,19 +22,21 @@ export const ranking = createSelector(teamsList, (list) => {
     .map((team, index) => ({ ...team, position: index + 1 }));
 
   let position = 1;
-  return sortedList.map((team, index) => {
-    if (index === 0) {
-      return team;
-    }
-    const previousTeam = sortedList[index - 1];
-    if (previousTeam.points !== team.points) {
-      position++;
-    }
-    return {
-      ...team,
-      position: previousTeam.points === team.points ? null : position,
-    };
-  });
+  return sortedList
+    .map((team, index) => {
+      if (index === 0) {
+        return team;
+      }
+      const previousTeam = sortedList[index - 1];
+      if (previousTeam.points !== team.points) {
+        position++;
+      }
+      return {
+        ...team,
+        position: previousTeam.points === team.points ? null : position,
+      };
+    })
+    .sort((a, b) => String(a.name).localeCompare(b.name));
 });
 
 export const playerOneTeam = createSelector(

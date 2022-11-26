@@ -4,6 +4,7 @@ import { GameComponent } from './game/game.component';
 import { RouterModule } from '@angular/router';
 import { GameDataAccessModule } from '@caca-palavras-app/game/data-access';
 import { GameUiModule } from '@caca-palavras-app/game/ui';
+import { GameAltComponent } from './game-alt';
 
 @NgModule({
   imports: [
@@ -14,10 +15,10 @@ import { GameUiModule } from '@caca-palavras-app/game/ui';
       {
         path: '',
         pathMatch: 'full',
-        component: GameComponent,
+        component: GameAltComponent,
       },
     ]),
   ],
-  declarations: [GameComponent],
+  declarations: [GameComponent, GameAltComponent],
 })
 export class GameFeatureShellModule {}

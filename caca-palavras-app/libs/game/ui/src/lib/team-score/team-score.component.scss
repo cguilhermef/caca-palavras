@@ -1,0 +1,35 @@
+:host {
+  background-color: var(--elevated-surface);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.symbol {
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 0;
+}
+
+.score-bar {
+  //background-color: #bf6e4e;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 100%;
+
+  .bar {
+    background-color: var(--high-elevated-surface);
+    display: flex;
+    flex: 0 0 auto;
+    //height: 80%;
+    width: 100%;
+  }
+}
+
+.name {
+  background-color: palegoldenrod;
+  width: 100%;
+}

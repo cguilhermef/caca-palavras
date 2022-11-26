@@ -1,0 +1,15 @@
+<!-- ranking -->
+<div class="ranking">
+  <!-- team -->
+  <cp-team-score
+    *ngFor="let team of ranking$ | async"
+    [totalPoints]="(totalPoint$ | async) ?? 0"
+    [team]="team"
+    class="team">
+  </cp-team-score>
+  <!-- team end-->
+</div>
+<!-- ranking end -->
+<!-- hud -->
+<div class="hud"></div>
+<!-- hud end -->

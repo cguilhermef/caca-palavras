@@ -2,17 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RankingPositionComponent } from './ranking-position';
 import { ChineseSymbolComponent } from './chinese-symbol';
-import { BoiComponent } from './symbols';
-import { CaoComponent } from './symbols/cao/cao.component';
+import { BoiComponent, CaoComponent } from './symbols';
+import { TeamScoreComponent } from './team-score';
 
 @NgModule({
   imports: [CommonModule],
-  exports: [RankingPositionComponent],
+  exports: [RankingPositionComponent, TeamScoreComponent],
   declarations: [
     RankingPositionComponent,
     ChineseSymbolComponent,
     BoiComponent,
     CaoComponent,
+    TeamScoreComponent,
   ],
 })
 export class GameUiModule {}
