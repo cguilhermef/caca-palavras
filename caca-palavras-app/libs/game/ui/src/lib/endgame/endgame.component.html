@@ -1,0 +1,12 @@
+<div class="placar pyro">
+  <div class="before"></div>
+  <h2 class="titulo">Fim de jogo!</h2>
+  <div class="teams">
+    <div class="team" *ngFor="let team of teams; index as position">
+      <div class="team__position">{{ position + 1 }}º</div>
+      <cp-chinese-symbol [team]="team.id" [alternate]="false"></cp-chinese-symbol>
+      <div class="team__name">{{ team.name }}</div>
+    </div>
+  </div>
+  <div class="after"></div>
+</div>

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Duration } from 'dayjs/plugin/duration';
 import * as dayjs from 'dayjs';
-import { map, takeWhile, tap, timer } from 'rxjs';
+import { filter, map, takeWhile, tap, timer } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import {
   GameActions,
@@ -9,6 +9,7 @@ import {
 } from '@caca-palavras-app/game/data-access';
 import { io } from 'socket.io-client';
 import { RawCommand } from '@caca-palavras-app/shared/util-interfaces';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'cp-game-alt',
@@ -20,9 +21,10 @@ export class GameAltComponent implements OnDestroy {
   private componentActive = true;
 
   private gameTime: Duration = dayjs.duration(1, 'hour');
-  private gameFinished = false;
-  private gameStarted = false;
+  gameFinished = false;
+  private gamePaused = true;
   countdown$ = timer(1000, 1000).pipe(
+    filter(() => !this.gamePaused),
     takeWhile(() => !this.gameFinished),
     tap(() => (this.gameTime = this.gameTime.subtract(1, 'second'))),
     map(() => {
@@ -46,21 +48,25 @@ export class GameAltComponent implements OnDestroy {
   playerTwoTeam$ = this.store.select(GameSelectors.playerTwoTeam);
 
   ranking$ = this.store.select(GameSelectors.ranking);
+  rankingLeaders$ = this.store.select(GameSelectors.rankingLeaders);
   totalPoint$ = this.store.select(GameSelectors.totalPoints);
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private action$: Actions) {
     const socket = io('localhost:3333');
     socket.on('command', (command) => {
       console.log('socket.on', command);
       this.dispatchActionFrom(command);
     });
 
-    // setInterval(
-    //   () => {
-    //     this.timer$.next(this.timer$.value.subtract(1, 'second'))
-    //   },
-    //   1000
-    // );
+    this.action$.pipe(ofType(GameActions.startGame)).subscribe(() => {
+      this.gamePaused = false;
+    });
+    this.action$.pipe(ofType(GameActions.pauseGame)).subscribe(() => {
+      this.gamePaused = true;
+    });
+    this.action$.pipe(ofType(GameActions.endGame)).subscribe(() => {
+      this.gameFinished = true;
+    });
   }
 
   ngOnDestroy() {

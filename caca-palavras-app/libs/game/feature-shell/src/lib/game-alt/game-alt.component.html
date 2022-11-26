@@ -55,6 +55,14 @@
   </div>
 </div>
 <!-- hud end -->
+
+<!-- endgame -->
+<cp-endgame
+  *ngIf="gameFinished"
+  [teams]="(rankingLeaders$ | async) ?? []"
+></cp-endgame>
+<!-- end game -->
+
 <!-- templates -->
 <ng-template #waitingPlayer>
   <div class="player-team player-team--waiting">Aguardando...</div>

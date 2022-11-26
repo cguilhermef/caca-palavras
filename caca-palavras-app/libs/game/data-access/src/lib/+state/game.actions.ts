@@ -36,5 +36,7 @@ export const resetTyping = createAction(
 );
 
 export const startGame = createAction('[Game] start the game');
+export const pauseGame = createAction('[Game] pause the game');
+export const boostGame = createAction('[Game] boost the game');
 
 export const endGame = createAction('[Game] end the game');

@@ -39,6 +39,13 @@ export const ranking = createSelector(teamsList, (list) => {
     .sort((a, b) => String(a.name).localeCompare(b.name));
 });
 
+export const rankingLeaders = createSelector(ranking, (teams) =>
+  teams
+    .slice()
+    .sort((a, b) => b.points - a.points)
+    .slice(0, 3)
+);
+
 export const playerOneTeam = createSelector(
   getGameState,
   ({ teams, currentPlayerOne }) =>

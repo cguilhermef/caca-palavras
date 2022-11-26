@@ -7,6 +7,7 @@ import { Teams } from '@caca-palavras-app/shared/util-interfaces';
   styleUrls: ['./chinese-symbol.component.scss'],
 })
 export class ChineseSymbolComponent {
+  @Input() alternate = true;
   @Input() team: Teams = Teams.Boi;
 
   @HostBinding('class.color-1') get team1() {

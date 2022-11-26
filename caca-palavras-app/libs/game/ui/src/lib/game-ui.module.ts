@@ -17,10 +17,11 @@ import {
   TigreComponent,
 } from './symbols';
 import { TeamScoreComponent } from './team-score';
+import { EndgameComponent } from './endgame/endgame.component';
 
 @NgModule({
   imports: [CommonModule],
-  exports: [RankingPositionComponent, TeamScoreComponent],
+  exports: [RankingPositionComponent, TeamScoreComponent, EndgameComponent],
   declarations: [
     RankingPositionComponent,
     ChineseSymbolComponent,
@@ -37,6 +38,7 @@ import { TeamScoreComponent } from './team-score';
     RatoComponent,
     SerpenteComponent,
     TigreComponent,
+    EndgameComponent,
   ],
 })
 export class GameUiModule {}
