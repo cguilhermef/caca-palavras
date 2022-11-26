@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'cp-macaco',
@@ -6,8 +6,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./macaco.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class MacacoComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class MacacoComponent {
+  @Input() alternate = false;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'cp-porco',
@@ -6,8 +6,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./porco.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class PorcoComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class PorcoComponent {
+  @Input() alternate = false;
 }

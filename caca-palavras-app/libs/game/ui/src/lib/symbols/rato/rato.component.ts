@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'cp-rato',
@@ -6,8 +6,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./rato.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class RatoComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class RatoComponent {
+  @Input() alternate = false;
 }

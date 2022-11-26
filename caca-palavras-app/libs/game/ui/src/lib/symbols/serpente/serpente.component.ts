@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'cp-serpente',
@@ -6,8 +6,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./serpente.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class SerpenteComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class SerpenteComponent {
+  @Input() alternate = false;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'cp-tigre',
@@ -6,8 +6,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./tigre.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class TigreComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class TigreComponent {
+  @Input() alternate = false;
 }
