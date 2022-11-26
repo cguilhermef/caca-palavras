@@ -35,11 +35,11 @@ export class GameAltComponent implements OnDestroy {
 
   playerOneWord$ = this.store.pipe(
     select(GameSelectors.playerOneWord),
-    map((characters) => characters.padEnd(10, ' ').split(''))
+    map((characters) => characters.padEnd(12, ' ').split(''))
   );
   playerTwoWord$ = this.store.pipe(
     select(GameSelectors.playerTwoWord),
-    map((characters) => characters.padEnd(10, ' ').split(''))
+    map((characters) => characters.padEnd(12, ' ').split(''))
   );
 
   playerOneTeam$ = this.store.select(GameSelectors.playerOneTeam);

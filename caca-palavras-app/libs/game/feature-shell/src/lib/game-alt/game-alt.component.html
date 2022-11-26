@@ -11,5 +11,52 @@
 </div>
 <!-- ranking end -->
 <!-- hud -->
-<div class="hud"></div>
+<div class="hud">
+  <div class="player player--one">
+    <!-- Player Name -->
+    <ng-container *ngIf="(playerOneTeam$ | async ) ?? null as playerOne; else waitingPlayer">
+      <div class="player-team">{{ playerOne.name }}</div>
+    </ng-container>
+    <!-- Player Name end -->
+    <!-- Player Word -->
+    <div class="player-word">
+      <span
+        *ngFor="let char of playerOneWord$ | async"
+        class="player-character">{{ char }}</span>
+    </div>
+    <!-- Player Word end -->
+  </div>
+  <div class="stats">
+    <div class="timer-label">Tempo restante</div>
+    <div class="timer">
+      <ng-container *ngFor="let p of (countdown$ | async) ?? ['00', '00', '00']; last as isLast">
+        <span class="timer-number">{{ p }}</span>
+        <ng-container *ngIf="!isLast">:</ng-container>
+      </ng-container>
+    </div>
+    <div class="words">
+      <span class="words-found">5</span>/<span class="words-total">120</span>
+      <div class="label">palavras encontradas</div>
+    </div>
+  </div>
+  <div class="player player--two">
+    <!-- Player Name -->
+    <ng-container *ngIf="(playerTwoTeam$ | async ) ?? null as playerTwo; else waitingPlayer">
+      <div class="player-team">{{ playerTwo.name }}</div>
+    </ng-container>
+    <!-- Player Name end -->
+    <!-- Player Word -->
+    <div class="player-word">
+      <span
+        *ngFor="let char of playerTwoWord$ | async"
+        class="player-character">{{ char }}</span>
+    </div>
+    <!-- Player Word end -->
+  </div>
+</div>
 <!-- hud end -->
+<!-- templates -->
+<ng-template #waitingPlayer>
+  <div class="player-team player-team--waiting">Aguardando...</div>
+</ng-template>
+<!-- templates end -->
