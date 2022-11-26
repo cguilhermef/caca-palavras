@@ -33,7 +33,7 @@ export const teamList: Team[] = [
     name: 'Boi',
     image: 'boi.svg',
     chinese: '牛',
-    points: 140,
+    points: 1400,
   },
   {
     ...teamFactory(),

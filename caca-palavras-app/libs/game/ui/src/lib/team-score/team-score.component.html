@@ -1,12 +1,14 @@
 <cp-chinese-symbol
   class="symbol"
   [team]="team.id"></cp-chinese-symbol>
-<div class="score-bar">
-  <div class="bar" [style.height.%]="scoreBarSize"></div>
-</div>
-<div class="score">
-  {{ team.points }}
-</div>
 <div class="name">
   {{ team.name }}
 </div>
+<div class="score">
+  {{ team.points | number }}
+</div>
+<div class="score-bar">
+  <div class="bar" [style.height.%]="scoreBarSize"></div>
+</div>
+
+

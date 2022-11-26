@@ -30,6 +30,13 @@
 }
 
 .name {
-  background-color: palegoldenrod;
+  background-color: var(--high-elevated-surface);
+  text-align: center;
   width: 100%;
+}
+
+.score {
+  font-size: 24px;
+  padding: 8px 8px 0 0;
+  text-align: right;
 }
