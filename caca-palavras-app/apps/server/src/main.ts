@@ -27,6 +27,19 @@ const io = new Server(server, {
 
 io.on('connect', () => console.log('Browser connected!'));
 
+const central = new SerialPort({
+  path: 'COM4',
+  baudRate: 9600,
+});
+const parserCentral = central.pipe(new DelimiterParser({ delimiter: '#' }));
+parserCentral.on('data', (data) => {
+  console.log('parserCentral.on', data.toString());
+  io.emit('command', {
+    player: 0,
+    payload: data.toString(),
+  });
+});
+
 const termOne = new SerialPort({
   path: 'COM6',
   baudRate: 4800,
