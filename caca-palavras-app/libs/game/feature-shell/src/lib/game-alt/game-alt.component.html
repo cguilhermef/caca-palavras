@@ -26,6 +26,7 @@
     </div>
     <!-- Player Word end -->
   </div>
+  <!-- stats -->
   <div class="stats">
     <div class="timer-label">Tempo restante</div>
     <div class="timer">
@@ -35,10 +36,12 @@
       </ng-container>
     </div>
     <div class="words">
-      <span class="words-found">5</span>/<span class="words-total">120</span>
+      <span class="words-found">{{ wordsFound$ | async }}</span>/<span
+      class="words-total">{{ totalAvailableWords$ | async}}</span>
       <div class="label">palavras encontradas</div>
     </div>
   </div>
+  <!-- stats end -->
   <div class="player player--two">
     <!-- Player Name -->
     <ng-container *ngIf="(playerTwoTeam$ | async ) ?? null as playerTwo; else waitingPlayer">

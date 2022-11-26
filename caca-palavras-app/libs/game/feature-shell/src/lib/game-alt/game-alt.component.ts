@@ -50,6 +50,8 @@ export class GameAltComponent implements OnDestroy {
   ranking$ = this.store.select(GameSelectors.ranking);
   rankingLeaders$ = this.store.select(GameSelectors.rankingLeaders);
   totalPoint$ = this.store.select(GameSelectors.totalPoints);
+  wordsFound$ = this.store.select(GameSelectors.countWordsFound);
+  totalAvailableWords$ = this.store.select(GameSelectors.totalAvailableWords);
 
   constructor(private store: Store, private action$: Actions) {
     const socket = io('localhost:3333');

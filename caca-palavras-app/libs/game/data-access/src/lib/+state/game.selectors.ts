@@ -61,3 +61,13 @@ export const playerTwoTeam = createSelector(
 export const totalPoints = createSelector(getGameState, ({ teams }) =>
   teams.reduce((r, { points }) => (r += points), 0)
 );
+
+export const totalAvailableWords = createSelector(getGameState, ({ words }) =>
+  words.reduce((r, { availableUnits }) => {
+    return r + availableUnits;
+  }, 0)
+);
+export const countWordsFound = createSelector(
+  getGameState,
+  ({ usedWords }) => usedWords.length
+);
