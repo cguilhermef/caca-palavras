@@ -79,6 +79,22 @@ export class GameAltComponent implements OnDestroy {
     const [type, value] = payload.split(':');
 
     switch (type) {
+      case 'startgame': {
+        this.store.dispatch(GameActions.startGame());
+        break;
+      }
+      case 'pausegame': {
+        this.store.dispatch(GameActions.pauseGame());
+        break;
+      }
+      case 'finishgame': {
+        this.store.dispatch(GameActions.endGame());
+        break;
+      }
+      case 'boostgame': {
+        this.store.dispatch(GameActions.boostGame());
+        break;
+      }
       case 'start': {
         this.store.dispatch(
           GameActions.startTyping({
