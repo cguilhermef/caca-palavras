@@ -2,7 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RankingPositionComponent } from './ranking-position';
 import { ChineseSymbolComponent } from './chinese-symbol';
-import { BoiComponent, CaoComponent } from './symbols';
+import {
+  BoiComponent,
+  CaoComponent,
+  CarneiroComponent,
+  CavaloComponent,
+  CoelhoComponent,
+  DragaoComponent,
+  GaloComponent,
+  MacacoComponent,
+  PorcoComponent,
+  RatoComponent,
+  SerpenteComponent,
+  TigreComponent,
+} from './symbols';
 import { TeamScoreComponent } from './team-score';
 
 @NgModule({
@@ -14,6 +27,16 @@ import { TeamScoreComponent } from './team-score';
     BoiComponent,
     CaoComponent,
     TeamScoreComponent,
+    CarneiroComponent,
+    CavaloComponent,
+    CoelhoComponent,
+    DragaoComponent,
+    GaloComponent,
+    MacacoComponent,
+    PorcoComponent,
+    RatoComponent,
+    SerpenteComponent,
+    TigreComponent,
   ],
 })
 export class GameUiModule {}
