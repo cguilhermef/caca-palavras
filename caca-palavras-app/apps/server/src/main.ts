@@ -30,13 +30,18 @@ io.on('connect', () => console.log('Browser connected!'));
 const central = new SerialPort({
   path: 'COM4',
   baudRate: 9600,
+  autoOpen: true,
 });
 const parserCentral = central.pipe(new DelimiterParser({ delimiter: '#' }));
 parserCentral.on('data', (data) => {
-  console.log('parserCentral.on', data.toString());
+  const command = data
+    .toString()
+    .replace('+CONNECTED', '')
+    .replace('+DISCONNECTED', '');
+  console.log('parserCentral.on', command);
   io.emit('command', {
     player: 0,
-    payload: data.toString(),
+    payload: command,
   });
 });
 
@@ -46,10 +51,14 @@ const termOne = new SerialPort({
 });
 const parserTermOne = termOne.pipe(new DelimiterParser({ delimiter: '#' }));
 parserTermOne.on('data', (data) => {
-  console.log('parserTermOne.on', data.toString());
+  const command = data
+    .toString()
+    .replace('+CONNECTED', '')
+    .replace('+DISCONNECTED', '');
+  console.log('parserTermOne.on', command);
   io.emit('command', {
     player: 1,
-    payload: data.toString(),
+    payload: command,
   });
 });
 
@@ -59,9 +68,13 @@ const termTwo = new SerialPort({
 });
 const parserTermTwo = termTwo.pipe(new DelimiterParser({ delimiter: '#' }));
 parserTermTwo.on('data', (data) => {
-  console.log('parserTermTwo.on', data.toString());
+  const command = data
+    .toString()
+    .replace('+CONNECTED', '')
+    .replace('+DISCONNECTED', '');
+  console.log('parserTermTwo.on', command);
   io.emit('command', {
     player: 2,
-    payload: data.toString(),
+    payload: command,
   });
 });

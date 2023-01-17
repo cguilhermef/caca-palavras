@@ -37,7 +37,7 @@ export interface RankedTeam extends Team {
 }
 
 export enum Teams {
-  Boi = 1,
+  Boi = 0,
   Cao,
   Carneiro,
   Cavalo,

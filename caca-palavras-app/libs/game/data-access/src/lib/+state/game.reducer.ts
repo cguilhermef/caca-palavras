@@ -10,6 +10,7 @@ export interface GameState {
   currentPlayerTwo: number | null;
   playerOneWord: string;
   playerTwoWord: string;
+  boosted: boolean;
   words: Word[];
   usedWords: Word[];
   teams: Team[];
@@ -18,6 +19,7 @@ export interface GameState {
 export const initialGameState: GameState = {
   currentPlayerOne: null,
   currentPlayerTwo: null,
+  boosted: false,
   playerOneWord: '',
   playerTwoWord: '',
   words: wordList,
@@ -27,6 +29,10 @@ export const initialGameState: GameState = {
 
 const reducer = createReducer(
   initialGameState,
+  on(GameActions.boostGame, (state) => ({
+    ...state,
+    boosted: true,
+  })),
   on(GameActions.startTyping, (state, { player, teamId }) => ({
     ...state,
     currentPlayerOne: player === 1 ? teamId : state.currentPlayerOne,
@@ -35,9 +41,13 @@ const reducer = createReducer(
   on(GameActions.typeCharacter, (state, { player, character }) => ({
     ...state,
     playerOneWord:
-      player === 1 ? state.playerOneWord + character : state.playerOneWord,
+      player === 1
+        ? state.playerOneWord + character.toUpperCase()
+        : state.playerOneWord,
     playerTwoWord:
-      player === 2 ? state.playerTwoWord + character : state.playerTwoWord,
+      player === 2
+        ? state.playerTwoWord + character.toUpperCase()
+        : state.playerTwoWord,
   })),
   on(GameActions.eraseLastCharacter, (state, { player }) => ({
     ...state,
@@ -75,21 +85,33 @@ const reducer = createReducer(
       return updatedState;
     }
 
-    const wordScore = 100 / wordFound.availableUnits;
-    const gameState = state.usedWords.length / 100 + 1;
+    const isSpecialWord = wordFound.owner !== null;
 
-    const points = Math.floor(wordScore * gameState) * 10;
+    const wordScore = 100 / wordFound.availableUnits;
+    // const gameState = state.usedWords.length / 100 + 1;
+
+    const points = isSpecialWord ? 100 : Math.floor(wordScore) * 10;
+    const boostedPoints = state.boosted ? points * 2 : points;
+    let updatedTeams = state.teams.map((team) =>
+      team.id !== teamId
+        ? team
+        : {
+            ...team,
+            points: team.points + boostedPoints,
+          }
+    );
+
+    if (isSpecialWord && wordFound.owner !== teamId) {
+      updatedTeams = updatedTeams.map((team) => ({
+        ...team,
+        points: wordFound.owner === team.id ? team.points - 50 : team.points,
+      }));
+    }
+
     return {
       ...updatedState,
       usedWords: state.usedWords.concat(wordFound),
-      teams: state.teams.map((team) =>
-        team.id !== teamId
-          ? team
-          : {
-              ...team,
-              points: team.points + points,
-            }
-      ),
+      teams: updatedTeams,
     };
   })
 );

@@ -1,13 +1,19 @@
-import { Team } from '@caca-palavras-app/shared/util-interfaces';
+import { Team, Teams } from '@caca-palavras-app/shared/util-interfaces';
 
 export interface Word {
   availableUnits: number;
   value: string;
+  owner: Teams | null;
 }
 
-const wordFactory = (value: string, availableUnits = 0): Word => ({
+const wordFactory = (
+  value: string,
+  availableUnits = 0,
+  owner: Teams | null = null
+): Word => ({
   value,
   availableUnits,
+  owner,
 });
 
 const teamFactory = (): Team => ({
@@ -30,67 +36,79 @@ export const wordList: Word[] = [
   wordFactory('BALOO', 10),
   wordFactory('STEPHENSON', 5),
   wordFactory('FRATERNIDADE', 5),
+  wordFactory('BOI', 1, Teams.Boi),
+  wordFactory('CAO', 1, Teams.Cao),
+  wordFactory('CARNEIRO', 1, Teams.Carneiro),
+  wordFactory('CAVALO', 1, Teams.Cavalo),
+  wordFactory('COELHO', 1, Teams.Coelho),
+  wordFactory('DRAGAO', 1, Teams.Dragao),
+  wordFactory('GALO', 1, Teams.Galo),
+  wordFactory('MACACO', 1, Teams.Macaco),
+  wordFactory('PORCO', 1, Teams.Porco),
+  wordFactory('RATO', 1, Teams.Rato),
+  wordFactory('SERPENTE', 1, Teams.Serpente),
+  wordFactory('TIGRE', 1, Teams.Tigre),
 ];
 
 export const teamList: Team[] = [
   {
     ...teamFactory(),
-    id: 1,
+    id: Teams.Boi,
     name: 'Boi',
   },
   {
     ...teamFactory(),
-    id: 2,
+    id: Teams.Cao,
     name: 'Cão',
   },
   {
     ...teamFactory(),
-    id: 3,
+    id: Teams.Carneiro,
     name: 'Carneiro',
   },
   {
     ...teamFactory(),
-    id: 4,
+    id: Teams.Cavalo,
     name: 'Cavalo',
   },
   {
     ...teamFactory(),
-    id: 5,
+    id: Teams.Coelho,
     name: 'Coelho',
   },
   {
     ...teamFactory(),
-    id: 6,
+    id: Teams.Dragao,
     name: 'Dragão',
   },
   {
     ...teamFactory(),
-    id: 7,
+    id: Teams.Galo,
     name: 'Galo',
   },
   {
     ...teamFactory(),
-    id: 8,
+    id: Teams.Macaco,
     name: 'Macaco',
   },
   {
     ...teamFactory(),
-    id: 9,
+    id: Teams.Porco,
     name: 'Porco',
   },
   {
     ...teamFactory(),
-    id: 10,
+    id: Teams.Rato,
     name: 'Rato',
   },
   {
     ...teamFactory(),
-    id: 11,
+    id: Teams.Serpente,
     name: 'Serpente',
   },
   {
     ...teamFactory(),
-    id: 12,
+    id: Teams.Tigre,
     name: 'Tigre',
   },
 ];

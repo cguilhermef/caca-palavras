@@ -16,7 +16,7 @@ export const startTyping = createAction(
 );
 
 export const finishTyping = createAction(
-  '[Game] start team typing',
+  '[Game] finish team typing',
   props<{ teamId: number; player: number }>()
 );
 

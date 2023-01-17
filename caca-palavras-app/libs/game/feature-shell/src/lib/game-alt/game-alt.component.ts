@@ -20,7 +20,7 @@ import { Actions, ofType } from '@ngrx/effects';
 export class GameAltComponent implements OnDestroy {
   private componentActive = true;
 
-  private gameTime: Duration = dayjs.duration(1, 'hour');
+  private gameTime: Duration = dayjs.duration(30, 'minute');
   gameFinished = false;
   private gamePaused = true;
   countdown$ = timer(1000, 1000).pipe(

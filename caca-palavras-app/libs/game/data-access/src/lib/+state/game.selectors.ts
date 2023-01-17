@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { GAME_FEATURE_KEY, GameState } from './game.reducer';
 import { RankedTeam } from '@caca-palavras-app/shared/util-interfaces';
+import { teamList } from './game.models';
 
 // Lookup the 'Game' feature state managed by NgRx
 export const getGameState = createFeatureSelector<GameState>(GAME_FEATURE_KEY);
@@ -71,3 +72,20 @@ export const countWordsFound = createSelector(
   getGameState,
   ({ usedWords }) => usedWords.length
 );
+
+export const timesComIdMaiorQue5 = createSelector(() => {
+  teamList.map(({ id }) => id > 5);
+});
+
+export const reportGroupMenuItems = createSelector(
+  hasReportsIndicatorsSubmenu,
+  (hasReport) => {
+    let items = [];
+
+    if(hasReport) {
+      items.push(menuFactory({
+        text
+      }))
+    }
+  }
+)
